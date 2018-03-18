@@ -1,15 +1,15 @@
 package forum.models;
 
 public class Forum {
-    private long id;
+    private String id;
     private String name;
 
-    public Forum(long id, String name) {
+    public Forum(String id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
