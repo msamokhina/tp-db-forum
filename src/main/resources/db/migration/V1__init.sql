@@ -1,4 +1,18 @@
-CREATE TABLE abc (
-id SERIAL PRIMARY KEY,
-email TEXT
+CREATE EXTENSION IF NOT EXISTS CITEXT;
+
+CREATE TABLE "User" (
+  id SERIAL PRIMARY KEY,
+  about TEXT COLLATE "ucs_basic",
+  email CITEXT COLLATE "ucs_basic" UNIQUE NOT NULL,
+  fullname VARCHAR(256) COLLATE "ucs_basic" NOT NULL,
+  nickname CITEXT COLLATE "ucs_basic" UNIQUE NOT NULL
+);
+
+CREATE TABLE Forum (
+  id SERIAL PRIMARY KEY,
+  posts INTEGER DEFAULT 0,
+  slug CITEXT COLLATE "ucs_basic" UNIQUE NOT NULL,
+  threads INTEGER DEFAULT 0,
+  title VARCHAR(256) COLLATE "ucs_basic" NOT NULL,
+  "user" CITEXT COLLATE "ucs_basic" NOT NULL REFERENCES "User" (nickname) ON DELETE CASCADE
 );
