@@ -4,14 +4,20 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.0.RELEASE")
+        classpath 'org.postgresql:postgresql:42.1.4'
     }
 }
 
+plugins {
+    id "org.flywaydb.flyway" version "5.1.1"
+}
+
 apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'application'
+
+mainClassName = 'forum.Application'
 
 bootJar {
     baseName = 'tp-db-forum'
@@ -20,6 +26,12 @@ bootJar {
 
 repositories {
     mavenCentral()
+}
+
+flyway {
+    url = 'jdbc:postgresql://127.0.0.1:5432/forumdb'
+    user = 'postgres'
+    password = 'postgres'
 }
 
 sourceCompatibility = 1.8
